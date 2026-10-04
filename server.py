@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 
 load_dotenv()
 
-ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]
+ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "https://hoda-khar.github.io/Portfolio/").split(",") if o.strip()]
 PERSONA = os.getenv("PERSONA", "third").lower()
 
 PERSONA_TEXT = (
