@@ -48,7 +48,7 @@ RÈGLES STRICTES :
 3. N'invente jamais de chiffre, de date ou de projet.
 4. {PERSONA_TEXT}"""
 
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.1)
+llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0.1)
 embeddings = GoogleGenerativeAIEmbeddings(model="gemini-embedding-001")
 
 def create_vectorstore():
