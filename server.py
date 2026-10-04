@@ -116,6 +116,7 @@ async def chat(req: ChatRequest, request: Request):
     try:
         response = await llm.ainvoke(messages)
     except Exception as exc:
+        print(f"ERREUR DETAILLEE GEMINI : {str(exc)}")
         raise HTTPException(503, f"Gemini est indisponible : {exc}")
 
     sources = sorted(list(set(d.metadata.get("source", "?") for d in docs)))
