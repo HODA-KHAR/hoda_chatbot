@@ -17,15 +17,24 @@ load_dotenv()
 
 ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "https://hoda-khar.github.io/Portfolio/").split(",") if o.strip()]
 
-app = FastAPI()
+# 1. Déclaration unique de l'application FastAPI
+app = FastAPI(title="Chatbot Portfolio Hoda - Cloud Gemini")
 
+# 2. Configuration CORS appliquée tout de suite après
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=ORIGINS,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+# 3. Route racine placée au tout début pour éviter le 404
 @app.get("/")
 def read_root():
     return {"status": "ok", "message": "Le chatbot est en ligne"}
 
 PERSONA = os.getenv("PERSONA", "third").lower()
-from fastapi import FastAPI
 PERSONA_TEXT = (
     "Parle de Hoda à la troisième personne (« Hoda a réalisé… »). Tu es un assistant virtuel."
     if PERSONA == "third"
@@ -66,9 +75,6 @@ def create_vectorstore():
 
 vectorstore = create_vectorstore()
 retriever = vectorstore.as_retriever(search_type="mmr", search_kwargs={"k": 5}) if vectorstore else None
-
-app = FastAPI(title="Chatbot Portfolio Hoda - Cloud Gemini")
-app.add_middleware(CORSMiddleware, allow_origins=ORIGINS, allow_methods=["*"], allow_headers=["*"])
 
 class Turn(BaseModel):
     role: Literal["user", "assistant"]
