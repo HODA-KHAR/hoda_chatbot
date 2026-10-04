@@ -21,11 +21,10 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
+
 @app.get("/")
 def read_root():
-    return {"message": "Le chatbot API est en ligne !"}
-
-
+    return {"status": "ok", "message": "Le chatbot est en ligne"}
 
 PERSONA_TEXT = (
     "Parle de Hoda à la troisième personne (« Hoda a réalisé… »). Tu es un assistant virtuel."
