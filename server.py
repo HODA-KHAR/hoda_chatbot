@@ -15,7 +15,7 @@ from pydantic import BaseModel, Field
 
 load_dotenv()
 
-ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "https://hoda-khar.github.io/Portfolio/").split(",") if o.strip()]
+ORIGINS = ["*"]
 
 # 1. Déclaration unique de l'application FastAPI
 app = FastAPI(title="Chatbot Portfolio Hoda - Cloud Gemini")
