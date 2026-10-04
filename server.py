@@ -55,6 +55,7 @@ def create_vectorstore():
     data_dir = Path("data")
     md_files = sorted(data_dir.glob("*.md"))
     if not md_files:
+        print("⚠️ Aucun fichier markdown trouvé dans data/ !")
         return None
 
     headers = [("#", "h1"), ("##", "h2"), ("###", "h3")]
@@ -70,6 +71,12 @@ def create_vectorstore():
                 piece.page_content = f"[{path.stem} | {titles}]\n{piece.page_content}"
                 piece.metadata["source"] = path.name
                 chunks.append(piece)
+
+    # ➔ Ajoute ces prints de vérification ici :
+    print(f"✅ Nombre total de chunks générés : {len(chunks)}")
+    for i, chunk in enumerate(chunks[:3]):  # Affiche un aperçu des 3 premiers morceaux
+        print(f"--- Chunk {i+1} ({chunk.metadata.get('source')}) ---")
+        print(chunk.page_content[:200] + "...\n")
 
     return Chroma.from_documents(documents=chunks, embedding=embeddings)
 
