@@ -16,8 +16,6 @@ from pydantic import BaseModel, Field
 load_dotenv()
 
 ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "https://hoda-khar.github.io/Portfolio/").split(",") if o.strip()]
-PERSONA = os.getenv("PERSONA", "third").lower()
-from fastapi import FastAPI
 
 app = FastAPI()
 
@@ -26,6 +24,8 @@ app = FastAPI()
 def read_root():
     return {"status": "ok", "message": "Le chatbot est en ligne"}
 
+PERSONA = os.getenv("PERSONA", "third").lower()
+from fastapi import FastAPI
 PERSONA_TEXT = (
     "Parle de Hoda à la troisième personne (« Hoda a réalisé… »). Tu es un assistant virtuel."
     if PERSONA == "third"
