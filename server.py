@@ -17,6 +17,15 @@ load_dotenv()
 
 ORIGINS = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "https://hoda-khar.github.io/Portfolio/").split(",") if o.strip()]
 PERSONA = os.getenv("PERSONA", "third").lower()
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Le chatbot API est en ligne !"}
+
+
 
 PERSONA_TEXT = (
     "Parle de Hoda à la troisième personne (« Hoda a réalisé… »). Tu es un assistant virtuel."
